@@ -2,7 +2,7 @@
 
 This is a scripted version of the steps you'd follow to get a Mozilla Firefox repository with [git-cinnabar](https://github.com/glandium/git-cinnabar) on it.
 
-Basically, it's like the steps at this page, but automated.
+Basically, it's like the steps at the [workflow for Gecko development](https://github.com/glandium/git-cinnabar/wiki/Mozilla:-A-git-workflow-for-Gecko-development) page, but automated.
 
 ## Usage
 
