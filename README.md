@@ -22,7 +22,10 @@ will do all sorts of magic to get you a git-enabled copy of Firefox's code that 
 
 ## Limitations
 
-Only tested on a Mac OS environment. It's a Bash script.
+Only tested successfully on a Mac OS environment.
+
+Places where it's been tested unsuccesfully (AKA *it does not work*):
+* **Bash on Windows** - [tracked here](https://github.com/sole/cinnabarify/issues/3).
 
 See the [issues](https://github.com/sole/cinnabarify/issues).
 
