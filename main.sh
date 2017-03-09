@@ -51,6 +51,10 @@ echo "☕️ ☕️ ☕️   About to download a  G I G A N T I C  amount of dat
 echo "Better grab a cup of your favourite hot beverage, or go do something else... life is too short to wait for hg pulls to finish!"
 git remote update
 
+# We have fetched the remotes but we haven't checked out anything yet!
+# This checks out mozilla/central as our master branch locally
+git checkout --track -b master mozilla/central
+
 sentences=(
 	"Hello!"
 	"$DESTINATION has been cinnabarified."
