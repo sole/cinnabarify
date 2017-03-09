@@ -1,7 +1,8 @@
 # TODO: check for git, hg, git-cinnabar to be installed
 # https://github.com/sole/cinnabarify/issues/1
 
-# Check for destination directory or exit
+# If target directory isn't specified, exit.
+# Note: $# is the number of arguments.
 if [ "$#" -eq 0 ]; then
 	echo "👉 ERROR: Please specify the target directory (i.e. where you want to get a Firefox tree that uses git-cinnabar)"
 	exit;
