@@ -33,10 +33,9 @@ The script checks out `mozilla/central` as the `master` branch locally. There ar
 This will bring your local `master` in sync with the last commit in `mozilla-central`:
 
 ```bash
-git fetch mozilla
-git remote update mozilla
+git remote update
 git checkout master
-git merge mozilla/central
+git pull --rebase mozilla
 ```
 
 ### Work on a bug
