@@ -64,7 +64,7 @@ Add files to the commit, use the syntax you built as the commit message, and the
 git push try
 ```
 
-This will output various messages, amongst with you'll find a URL linking to the test job you created by pushing to the server. You can visit that to see the status of your tests.
+This will output various messages, amongst which you'll find a URL linking to the test job you created by pushing to the server. You can visit that to see the status of your tests.
 
 ### Submitting patches to MozReview
 
