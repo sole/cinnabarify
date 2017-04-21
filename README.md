@@ -50,6 +50,22 @@ git checkout -b bug123456789
 
 Do your work and everything. If you need to work on another thing, you can add and commit the changes, check out `master` and create another branch from there.
 
+### Push to the `try` server
+
+You might want to push your current branch to the testing server to get the test suite run in a number of environments.
+
+The way the environments in which tests are run is decided is by looking at the git commit message. There is a [try syntax builder](https://mozilla-releng.net/trychooser/) that can help you with this.
+
+<!--TODO: add some common try syntaxes-->
+
+Add files to the commit, use the syntax you built as the commit message, and then push:
+
+```bash
+git push try
+```
+
+This will output various messages, amongst with you'll find a URL linking to the test job you created by pushing to the server. You can visit that to see the status of your tests.
+
 ### Submitting patches to MozReview
 
 It's advisable to use the MozReview interface to send patches for review rather than generating a patch and attaching it to Bugzilla, and even better: it's possible to send the patches using the command line!
