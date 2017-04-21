@@ -50,7 +50,7 @@ git checkout -b bug123456789
 
 Do your work and everything. If you need to work on another thing, you can add and commit the changes, check out `master` and create another branch from there.
 
-### Push to the `try` server
+### Pushing to the `try` server
 
 You might want to push your current branch to the testing server to get the test suite run in a number of environments.
 
