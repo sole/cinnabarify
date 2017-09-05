@@ -46,6 +46,10 @@ git config remote.try.skipDefaultUpdate true
 git remote set-url --push try hg::ssh://hg.mozilla.org/try
 git config remote.try.push +HEAD:refs/heads/branches/default/tip
 
+# Setup a remote for the mozreview server, so you can apply WIP patches locally
+git remote add try hg::https://reviewboard-hg.mozilla.org/gecko
+git config remote.try.skipDefaultUpdate true
+
 # Update ALL THE REMOTES!!!
 echo "☕️ ☕️ ☕️   About to download a  G I G A N T I C  amount of data!!"
 echo "Better grab a cup of your favourite hot beverage, or go do something else... life is too short to wait for hg pulls to finish!"

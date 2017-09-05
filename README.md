@@ -22,9 +22,9 @@ will do all sorts of magic to get you a git-enabled copy of Firefox's code that 
 
 ## Using the resulting repository
 
-The result of a successful execution is a git repository that somehow uses hg (Mercurial) underneath via git-cinnabar. But to all effects and purposes, it's a git repository, which means you do not need to learn hg, and can keep using the same workflow you already know about.
+The result of a successful execution is a git repository that somehow uses hg (Mercurial) underneath via `git-cinnabar`. But to all effects and purposes, it's a `git` repository, which means you do not need to learn `hg`, and can keep using the same workflow you already know about.
 
-Since not everyone is a born-git-expert, I'm going to list a few of the common actions that you might want to do on a day to day basis:
+Since not everyone is a born-git-expert, I'm going to describe how to perform the most common tasks that you might need as a Firefox developer:
 
 ### Updating from `upstream` (getting latest changes from `mozilla-central`):
 
@@ -145,6 +145,29 @@ git mozreview push
 ```
 
 The system is smart enough to detect it's the same bug, and so the URL for the review page will be the same.
+
+
+#### Applying patches from MozReview to your local branch
+
+This is in case that you want to apply somebody else's patches to your local code, but don't want to manually download and apply the diff. For example, if someone asks you to review a their implementation of a new feature and you want to run and validate it locally in addition to reviewing the code in itself.
+
+First you need to find the {HASH} in the MozReview page: it's the hash displayed in a format such as `hg pull -r {HASH}`
+The interface won't let you just select and copy the hash only, so copy the whole thing and paste it elsewhere, then copy the hash only and type this in your command line, but replace {HASH} with the actual hash!
+
+```bash
+git cinnabar fetch mozreview {HASH};
+git cherry-pick FETCH_HEAD
+```
+
+This will retrieve the branch in the `mozreview` remote (it is set up automatically by `cinnabarify`), then will apply the patch to your current branch. So it is very advisable that you check out into a new branch before you run the `cherry-pick` command!
+
+If the review contains more than one commit, you will want to apply all of those commits to your current branch. In that case, the `cherry-pick` parameter should be `..FETCH_HEAD`, like this:
+
+```
+git cherry-pick ..FETCH_HEAD
+```
+
+And it will apply each of the commits for you.
 
 ## Limitations
 
