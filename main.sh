@@ -49,8 +49,6 @@ git init "$1"
 cd "$1" || exit
 
 # Get native helper for faster operations
-# If there's an error, the status code (available in the $? variable) is 1
-# so we'll try to install requests... and grab the native helper again (aghhh)
 if ! git cinnabar download; then
 	echo "Attempting to install requests"
 	pip install requests
