@@ -1,7 +1,11 @@
 #!/bin/bash
 
-# check for git, hg, git-cinnabar to be installed
+# if user has homebrew installed, install all dependencies
+if [ -x "$(command -v brew)" ]; then
+    brew install git hg git-cinnabar
+fi
 
+# check for git, hg, git-cinnabar to be installed
 if ! [ -x "$(command -v git)" ]; then
   echo 'Error: git is not installed.' >&2
   exit 1
