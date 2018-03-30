@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # check for git, hg, git-cinnabar to be installed
 
 if ! [ -x "$(command -v git)" ]; then
@@ -33,21 +35,19 @@ DESTINATION=$1
 	
 echo "~~~ Cinnabarifying $DESTINATION... ~~~"
 
-if [ -f $DESTINATION ]; then
+if [ -f "$DESTINATION" ]; then
 	echo "$DESTINATION already exists, please specify another directory"
 	exit
 fi
 
 # Start by creating empty git repo
-git init $1
-cd $1
+git init "$1"
+cd "$1" || exit
 
 # Get native helper for faster operations
-git cinnabar download
-
 # If there's an error, the status code (available in the $? variable) is 1
 # so we'll try to install requests... and grab the native helper again (aghhh)
-if [ $? -ne 0 ]; then
+if ! git cinnabar download; then
 	echo "Attempting to install requests"
 	pip install requests
 	git cinnabar download
@@ -87,9 +87,9 @@ sentences=(
 
 for i in "${sentences[@]}"
 do
-	echo $i
+	echo "$i"
 	# TODO detect if 'say' exists before attempting to use it
 	# https://github.com/sole/cinnabarify/issues/2
-	say $i
+	say "$i"
 done
 
