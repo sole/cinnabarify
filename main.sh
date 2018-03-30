@@ -51,7 +51,7 @@ cd "$1" || exit
 # Get native helper for faster operations
 if ! git cinnabar download; then
 	echo "Attempting to install requests"
-	pip install requests
+	pip install requests 2> /dev/null || sudo pip install requests
 	git cinnabar download
 fi
 
