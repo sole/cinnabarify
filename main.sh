@@ -21,7 +21,7 @@ if ! [ -x "$(command -v pip)" ]; then
   exit 1
 fi
 
-if ! git cinnabar; then
+if ! [ -x "$(command -v git-cinnabar)" ]; then
   echo 'Error: git cinnabar is not installed.' >&2
   exit 1
 fi
