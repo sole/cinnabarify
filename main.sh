@@ -1,5 +1,24 @@
-# TODO: check for git, hg, git-cinnabar to be installed
-# https://github.com/sole/cinnabarify/issues/1
+# check for git, hg, git-cinnabar to be installed
+
+if ! [ -x "$(command -v git)" ]; then
+  echo 'Error: git is not installed.' >&2
+  exit 1
+fi
+
+if ! [ -x "$(command -v hg)" ]; then
+  echo 'Error: mercurial is not installed.' >&2
+  exit 1
+fi
+
+if ! [ -x "$(command -v pip)" ]; then
+  echo 'Error: pip is not installed.' >&2
+  exit 1
+fi
+
+if ! git cinnabar; then
+  echo 'Error: git cinnabar is not installed.' >&2
+  exit 1
+fi
 
 # If target directory isn't specified, exit.
 # Note: $# is the number of arguments.
