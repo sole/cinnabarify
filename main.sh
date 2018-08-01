@@ -1,5 +1,30 @@
-# TODO: check for git, hg, git-cinnabar to be installed
-# https://github.com/sole/cinnabarify/issues/1
+#!/bin/bash
+
+# if user has homebrew installed, install all dependencies
+if [ -x "$(command -v brew)" ]; then
+    brew install git hg git-cinnabar
+fi
+
+# check for git, hg, git-cinnabar to be installed
+if ! [ -x "$(command -v git)" ]; then
+  echo 'Error: git is not installed.' >&2
+  exit 1
+fi
+
+if ! [ -x "$(command -v hg)" ]; then
+  echo 'Error: mercurial is not installed.' >&2
+  exit 1
+fi
+
+if ! [ -x "$(command -v pip)" ]; then
+  echo 'Error: pip is not installed.' >&2
+  exit 1
+fi
+
+if ! [ -x "$(command -v git-cinnabar)" ]; then
+  echo 'Error: git cinnabar is not installed.' >&2
+  exit 1
+fi
 
 # If target directory isn't specified, exit.
 # Note: $# is the number of arguments.
@@ -14,23 +39,19 @@ DESTINATION=$1
 	
 echo "~~~ Cinnabarifying $DESTINATION... ~~~"
 
-if [ -f $DESTINATION ]; then
+if [ -f "$DESTINATION" ]; then
 	echo "$DESTINATION already exists, please specify another directory"
 	exit
 fi
 
 # Start by creating empty git repo
-git init $1
-cd $1
+git init "$1"
+cd "$1" || exit
 
 # Get native helper for faster operations
-git cinnabar download
-
-# If there's an error, the status code (available in the $? variable) is 1
-# so we'll try to install requests... and grab the native helper again (aghhh)
-if [ $? -ne 0 ]; then
+if ! git cinnabar download; then
 	echo "Attempting to install requests"
-	pip install requests
+	pip install requests 2> /dev/null || sudo pip install requests
 	git cinnabar download
 fi
 
@@ -68,9 +89,9 @@ sentences=(
 
 for i in "${sentences[@]}"
 do
-	echo $i
+	echo "$i"
 	# TODO detect if 'say' exists before attempting to use it
 	# https://github.com/sole/cinnabarify/issues/2
-	say $i
+	say "$i"
 done
 
