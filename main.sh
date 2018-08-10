@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # if user has homebrew installed, install all dependencies
-if [ -x "$(command -v brew)" ]; then
-    brew install git hg git-cinnabar
-fi
+#if [ -x "$(command -v brew)" ]; then
+#    brew install git hg git-cinnabar
+#fi
 
 # check for git, hg, git-cinnabar to be installed
 if ! [ -x "$(command -v git)" ]; then
@@ -22,8 +22,12 @@ if ! [ -x "$(command -v pip)" ]; then
 fi
 
 if ! [ -x "$(command -v git-cinnabar)" ]; then
-  echo 'Error: git cinnabar is not installed.' >&2
-  exit 1
+  if [ -x "$(command -v brew)" ]; then
+    brew install git hg git-cinnabar
+  else
+    echo 'Error: git cinnabar is not installed, and brew is not available (to install dependencies)' >&2
+    exit 1
+  fi
 fi
 
 # If target directory isn't specified, exit.
@@ -44,22 +48,16 @@ if [ -f "$DESTINATION" ]; then
 	exit
 fi
 
-# Start by creating empty git repo
-git init "$1"
-cd "$1" || exit
+git -c cinnabar.clone=https://github.com/glandium/gecko clone hg::https://hg.mozilla.org/mozilla-unified "$DESTINATION" && cd "$DESTINATION"
 
-# Get native helper for faster operations
-if ! git cinnabar download; then
-	echo "Attempting to install requests"
-	pip install requests 2> /dev/null || sudo pip install requests
-	git cinnabar download
-fi
-
-# Various configs for git-cinnabar to be happy
+# The docs say this makes git-cinnabar happier
 git config fetch.prune true
-git config push.default upstream
-git remote add mozilla hg::https://hg.mozilla.org/mozilla-unified -t bookmarks/central
-git remote set-url --push mozilla hg::ssh://hg.mozilla.org/integration/mozilla-inbound
+
+# If watchman is installed, this makes git status and friends faster
+if [ -x "$(command -v watchman)" ]; then
+  mv .git/hooks/fsmonitor-watchman.sample .git/hooks/query-watchman
+  git config core.fsmonitor .git/hooks/query-watchman
+fi
 
 # Setup a remote for the try server:
 git remote add try hg::https://hg.mozilla.org/try
@@ -67,18 +65,8 @@ git config remote.try.skipDefaultUpdate true
 git remote set-url --push try hg::ssh://hg.mozilla.org/try
 git config remote.try.push +HEAD:refs/heads/branches/default/tip
 
-# Setup a remote for the mozreview server, so you can apply WIP patches locally
-git remote add mozreview hg::https://reviewboard-hg.mozilla.org/gecko
-git config remote.mozreview.skipDefaultUpdate true
-
-# Update ALL THE REMOTES!!!
-echo "☕️ ☕️ ☕️   About to download a  G I G A N T I C  amount of data!!"
-echo "Better grab a cup of your favourite hot beverage, or go do something else... life is too short to wait for hg pulls to finish!"
-git remote update
-
-# We have fetched the remotes but we haven't checked out anything yet!
-# This checks out mozilla/central as our master branch locally
-git checkout --track -b master mozilla/central
+# Fetch the tags
+git fetch --tags hg::tags: tag "*"
 
 sentences=(
 	"Hello!"
