@@ -68,6 +68,15 @@ git config remote.try.push +HEAD:refs/heads/branches/default/tip
 # Fetch the tags
 git fetch --tags hg::tags: tag "*"
 
+# Default branches are branches/default/tip and origin/branches/default/tip
+# but we'll checkout bookmarks/central as master
+git remote add mozilla hg::https://hg.mozilla.org/mozilla-unified -t bookmarks/central
+git remote update # creates mozilla/bookmarks/central
+git checkout -b master --track mozilla/bookmarks/central
+
+# You could check out the tip (inbound?) with
+# git checkout -b tip branches/default/tip
+
 sentences=(
 	"Hello!"
 	"$DESTINATION has been cinnabarified."

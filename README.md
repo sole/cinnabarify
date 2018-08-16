@@ -28,7 +28,7 @@ Since not everyone is a born-git-expert, I'm going to describe how to perform th
 
 ### Updating from `upstream` (getting latest changes from `mozilla-central`):
 
-The script checks out `mozilla/central` as the `master` branch locally. There are hundreds of commits being pushed to that branch every day, so you'll want to pull regularly to ensure your code is written on top of the latest code.
+The script checks out `mozilla/central` as the `master` branch locally. There are hundreds of commits being merged into that branch every day, so you'll want to pull regularly to ensure your code is written on top of the latest code.
 
 This will bring your local `master` in sync with the last commit in `mozilla-central`:
 
