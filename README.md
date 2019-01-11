@@ -66,6 +66,10 @@ git push try
 
 This will output various messages, amongst which you'll find a URL linking to the test job you created by pushing to the server. You can visit that to see the status of your tests.
 
+<!--
+
+MozReview is obsolete, but some of the git commands might be useful...
+
 ### Submitting patches to MozReview
 
 It's advisable to use the MozReview interface to send patches for review rather than generating a patch and attaching it to Bugzilla, and even better: it's possible to send the patches using the command line!
@@ -169,6 +173,7 @@ git cherry-pick ..FETCH_HEAD
 
 And it will apply each of the commits for you.
 
+-->
 ### Advanced: command line utils
 
 If you want a bit more help, you can add the `cinnabarify/bin` directory to your path, and it will add some useful commands to your command line repertoire (although at the moment there's only one 😅).
@@ -201,6 +206,13 @@ source ~/.bashrc # or .bash_profile if it's where yours is
 ```
 
 Now you should be able to start typing `cinnabarif`, then press TAB and it should be autocompleted to show available commands.
+
+### Cheatsheet table
+
+| Action  | Command |
+| ------- | --------- |
+| Pull from mozilla-central<br />(updating from `upstream`) | `cinnabarify-pull-mozilla` |
+
 
 ## Limitations
 
