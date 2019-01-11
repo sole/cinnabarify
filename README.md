@@ -169,6 +169,39 @@ git cherry-pick ..FETCH_HEAD
 
 And it will apply each of the commits for you.
 
+### Advanced: command line utils
+
+If you want a bit more help, you can add the `cinnabarify/bin` directory to your path, and it will add some useful commands to your command line repertoire (although at the moment there's only one 😅).
+
+To do this, find the full path to your cinnabarify clone:
+
+```bash
+cd cinnabarify # if you were not there yet
+pwd # will return the full path, for example: /Users/sole/data/projects/cinnabarify
+```
+
+We can transform this to a shorter version, replacing the base with `$HOME`. In my case, `/Users/sole/data/projects/cinnabarify` becomes `$HOME/data/projects/cinnabarify`. And we add `/bin` at the end: `$HOME/data/projects/cinnabarify/bin`.
+
+Then edit the file where your $PATH variable is defined, to add this path. The files are usually called `.bash_profile` or `.bashrc`. Find the definition, and add the path to the `bin` directory. For example, if the file had this before:
+
+```bash
+PATH=/usr/local/opt/ccache/libexec:$PATH:$HOME/bin/git-cinnabar
+```
+
+then we add a semicolon (which is the separator) and add our new extra directory:
+
+```bash
+PATH=/usr/local/opt/ccache/libexec:$PATH:$HOME/bin/git-cinnabar:$HOME/data/projects/cinnabarify/bin
+```
+
+To make this effective you'll need to save the file and restart your terminal window or open a new session, OR you can also request the file to be read again with `source`, without abandoning your current terminal:
+
+```bash
+source ~/.bashrc # or .bash_profile if it's where yours is
+```
+
+Now you should be able to start typing `cinnabarif`, then press TAB and it should be autocompleted to show available commands.
+
 ## Limitations
 
 Only tested successfully on a Mac OS environment.

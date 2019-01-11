@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# TODO: it could try and see if this is a 'cinnabarified' repo before running the commands
+git remote update && git checkout master && git pull --rebase mozilla
